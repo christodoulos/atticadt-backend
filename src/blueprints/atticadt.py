@@ -35,7 +35,7 @@ def post_location():
 
 @atticadt.route("/locations/<name>", methods=["GET"])
 def get_location(name: str):
-    location = Location.objects.get(name=name).to_json()
+    location = Location.objects(name=name).to_json()
     return Response(
         response=location,
         status=200,
