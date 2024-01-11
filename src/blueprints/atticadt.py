@@ -35,9 +35,16 @@ def post_location():
 
 @atticadt.route("/locations/<name>", methods=["GET"])
 def get_location(name: str):
-    location = Location.objects(name=name).to_json()
-    return Response(
-        response=location,
-        status=200,
-        mimetype="application/json",
-    )
+    location = Location.objects(name=name)
+    if not location:
+        return Response(
+            response=json.dumps({"error": "Location not found"}),
+            status=404,
+            mimetype="application/json",
+        )
+    else:
+        return Response(
+            response=location[0].to_json(),
+            status=200,
+            mimetype="application/json",
+        )
