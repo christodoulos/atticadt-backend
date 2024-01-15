@@ -1,4 +1,4 @@
-from src import db
+# from src import db
 import mongoengine as me
 from src.models.shared import PointFeature
 
@@ -9,7 +9,7 @@ class HeatmapProperty(me.EmbeddedDocument):
     obstime = me.StringField(required=True, db_field="TimeOfObservation")
 
 
-class Heatmap(db.Document):
+class Heatmap(me.Document):
     type = me.StringField(required=True, default="FeatureCollection")
     properties = me.EmbeddedDocumentField(HeatmapProperty, required=True)
     name = me.StringField(required=True, unique=True)

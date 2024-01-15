@@ -1,8 +1,8 @@
-from src import db
+# from src import db
 import mongoengine as me
 
 
-class Irrigation(db.Document):
+class Irrigation(me.Document):
     index = me.FloatField(required=True)
     timestamp = me.DateTimeField(required=True)
     start = me.FloatField(required=True)
@@ -38,7 +38,7 @@ class Irrigation(db.Document):
     meta = {"collection": "irrigation", "db_alias": "attica_green"}
 
 
-class IrrigationData(db.Document):
+class IrrigationData(me.Document):
     timestamp = me.DateTimeField(required=True)
     temperature_water = me.FloatField(required=True)
     conductivity_water = me.FloatField(required=True)
@@ -59,7 +59,7 @@ class IrrigationData(db.Document):
     meta = {"collection": "irrigation_data", "db_alias": "attica_green"}
 
 
-class ClimaData(db.Document):
+class ClimaData(me.Document):
     timestamp = me.DateTimeField(required=True)
     temperature_out = me.FloatField(required=True)
     humidity_out = me.FloatField(required=True)

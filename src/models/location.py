@@ -1,4 +1,4 @@
-from src import db
+# from src import db
 import mongoengine as me
 
 
@@ -30,7 +30,7 @@ class GLBModel(me.EmbeddedDocument):
     tooltip = me.StringField(required=True)
 
 
-class Location(db.Document):
+class Location(me.Document):
     name = me.StringField(required=True)
     center = me.EmbeddedDocumentField(Point, required=True)
     zoom = me.FloatField(min_value=0, max_value=20)
