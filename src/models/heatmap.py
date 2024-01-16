@@ -1,4 +1,3 @@
-# from src import db
 import mongoengine as me
 from src.models.shared import PointFeature
 

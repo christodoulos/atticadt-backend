@@ -1,6 +1,4 @@
-# from src import db
 import mongoengine as me
-import datetime
 
 
 class APNPLC(me.Document):
