@@ -9,7 +9,7 @@ class HipsBase(me.Document):
     min = me.FloatField(required=True)
     max = me.FloatField(required=True)
 
-    meta = {"abstract": True}
+    meta = {"abstract": True, "indexes": ["date"]}
 
 
 def HipsFactory(nuts_level, experiment, metric):

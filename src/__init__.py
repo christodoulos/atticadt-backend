@@ -9,6 +9,7 @@ from src.blueprints.attica_green import attica_green
 from src.blueprints.apn_plc import apnplc
 from src.blueprints.heatmap import heatmap
 from src.blueprints.hips import hips
+from src.blueprints.nuts import nuts
 
 SWAGGER_URL = "/docs"
 API_URL = "/static/swagger.json"
@@ -36,11 +37,12 @@ cors = CORS(
 )
 
 
-app.register_blueprint(atticadt, url_prefix="/atticadt")
-app.register_blueprint(attica_green, url_prefix="/attica_green")
-app.register_blueprint(apnplc, url_prefix="/apnplc")
-app.register_blueprint(heatmap, url_prefix="/heatmap")
-app.register_blueprint(hips, url_prefix="/hips")
+app.register_blueprint(atticadt, url_prefix="/flask/atticadt")
+app.register_blueprint(attica_green, url_prefix="/flask/attica_green")
+app.register_blueprint(apnplc, url_prefix="/flask/apnplc")
+app.register_blueprint(heatmap, url_prefix="/flask/heatmap")
+app.register_blueprint(hips, url_prefix="/flask/hips")
+app.register_blueprint(nuts, url_prefix="/flask/nuts")
 
 
 app.register_blueprint(swaggerui_blueprint)
