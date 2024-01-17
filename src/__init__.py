@@ -11,13 +11,15 @@ from src.blueprints.heatmap import heatmap
 from src.blueprints.hips import hips
 from src.blueprints.nuts import nuts
 
-SWAGGER_URL = "/docs"
+SWAGGER_URL = "/flask/docs"
 API_URL = "/static/swagger.json"
 
 swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
-    config={"app_name": "Test application"},
+    config={
+        "app_name": "Digital Twin of Attica API",
+    },
 )
 
 app = Flask(__name__)

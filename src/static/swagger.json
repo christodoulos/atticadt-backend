@@ -1,85 +1,145 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.3",
+
   "info": {
-    "description": "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
-    "version": "1.0.6",
-    "title": "Swagger Petstore",
-    "termsOfService": "http://swagger.io/terms/",
+    "title": "Attica Digital Twins API",
+    "description": "This API is the backend for the Attica Digital Twins project. It provides data to the frontend applications as well as to any interested third party.",
+    "version": "1.0.0",
     "contact": {
-      "email": "apiteam@swagger.io"
+      "name": "Attica Digital Twins",
+      "url": "https://atticadt.uwmh.eu",
+      "email": "dt@atticadt.uwmh.eu"
     },
     "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      "name": "AGPL",
+      "url": "https://www.gnu.org/licenses/agpl-3.0.en.html"
     }
   },
-  "host": "petstore.swagger.io",
-  "basePath": "/v2",
+
   "tags": [
     {
-      "name": "pet",
-      "description": "Everything about your Pets",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "http://swagger.io"
-      }
-    },
-    {
-      "name": "store",
-      "description": "Access to Petstore orders"
-    },
-    {
-      "name": "user",
-      "description": "Operations about user",
-      "externalDocs": {
-        "description": "Find out more about our store",
-        "url": "http://swagger.io"
-      }
+      "name": "Athens Plant Nursery",
+      "description": "Provides access to real-time data from the Athens Plant Nursery PLC and water quality data from the analyses of ΕΥΔΑΠ."
     }
   ],
-  "schemes": ["https", "http"],
+
   "paths": {
-    "/atticadt/locations": {
+    "/flask/apnplc/{limit}": {
       "get": {
-        "tags": ["pet"],
-        "summary": "Finds Pets by status",
-        "description": "Multiple status values can be provided with comma separated strings",
-        "operationId": "findPetsByStatus",
-        "produces": ["application/json", "application/xml"],
+        "tags": ["Athens Plant Nursery"],
+        "summary": "Get metrics the last {limit} PLC metrics",
         "parameters": [
           {
-            "name": "status",
-            "in": "query",
-            "description": "Status values that need to be considered for filter",
+            "name": "limit",
+            "in": "path",
             "required": true,
-            "type": "array",
-            "items": {
-              "type": "string",
-              "enum": ["available", "pending", "sold"],
-              "default": "available"
-            },
-            "collectionFormat": "multi"
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Pet"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APNPLC"
+                }
               }
             }
+          }
+        }
+      }
+    },
+
+    "/flask/attica_green/data": {
+      "get": {
+        "summary": "Get data",
+        "description": "This endpoint returns an Excel file with irrigation, irrigation data, and clima data.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            },
+            "headers": {
+              "Content-disposition": {
+                "description": "The filename of the returned Excel file.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "APNPLC": {
+        "type": "object",
+        "properties": {
+          "Timestamp": {
+            "type": "string",
+            "format": "date-time"
           },
-          "400": {
-            "description": "Invalid status value"
+          "col3": {
+            "type": "number",
+            "format": "float"
+          },
+          "col4": {
+            "type": "number",
+            "format": "float"
+          },
+          "col5": {
+            "type": "number",
+            "format": "float"
+          },
+          "col6": {
+            "type": "number",
+            "format": "float"
+          },
+          "col7": {
+            "type": "number",
+            "format": "float"
+          },
+          "col8": {
+            "type": "number",
+            "format": "float"
+          },
+          "col9": {
+            "type": "number",
+            "format": "float"
+          },
+          "col10": {
+            "type": "number",
+            "format": "float"
+          },
+          "col11": {
+            "type": "number",
+            "format": "float"
+          },
+          "col12": {
+            "type": "number",
+            "format": "float"
+          },
+          "col13": {
+            "type": "number",
+            "format": "float"
+          },
+          "col14": {
+            "type": "number",
+            "format": "float"
           }
-        },
-        "security": [
-          {
-            "petstore_auth": ["write:pets", "read:pets"]
-          }
-        ]
+        }
       }
     }
   }
