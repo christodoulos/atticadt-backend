@@ -12,10 +12,10 @@ class HipsBase(me.Document):
     meta = {"abstract": True, "indexes": ["date"]}
 
 
-def HipsFactory(nuts_level, experiment, metric):
+def HipsClassFactory(nuts_level, experiment, metric):
     class Hips(HipsBase):
         meta = {
-            "collection": f"{nuts_level}:{experiment}:{metric}",
+            "collection": f"nuts_{nuts_level}:{experiment}:{metric}",
             "db_alias": "hips",
         }
 

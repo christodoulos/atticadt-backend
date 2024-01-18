@@ -20,6 +20,14 @@
     {
       "name": "Athens Plant Nursery",
       "description": "Provides access to real-time data from the Athens Plant Nursery PLC and water quality data from the analyses of ΕΥΔΑΠ."
+    },
+    {
+      "name": "Attica Green",
+      "description": "Provides access to data from the Attica Green project."
+    },
+    {
+      "name": "HIPS",
+      "description": "API endpoints supporting the HIPS project."
     }
   ],
 
@@ -55,6 +63,7 @@
 
     "/flask/attica_green/data": {
       "get": {
+        "tags": ["Attica Green"],
         "summary": "Get data",
         "description": "This endpoint returns an Excel file with irrigation, irrigation data, and clima data.",
         "responses": {
@@ -73,6 +82,239 @@
                 "description": "The filename of the returned Excel file.",
                 "schema": {
                   "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/flask/hips/{nuts_level}/{experiment}/{metric}": {
+      "get": {
+        "tags": ["HIPS"],
+        "summary": "Get Hips",
+        "parameters": [
+          {
+            "name": "nuts_level",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "experiment",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "metric",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/flask/hips/{nuts_level}/{experiment}/{metric}/{date}": {
+      "get": {
+        "tags": ["HIPS"],
+        "summary": "Get Hips by Date",
+        "parameters": [
+          {
+            "name": "nuts_level",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "experiment",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "metric",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/flask/hips/{nuts_level}/{experiment}/{metric}/{from_date}/{to_date}": {
+      "get": {
+        "tags": ["HIPS"],
+        "summary": "Get Hips by Date Range",
+        "parameters": [
+          {
+            "name": "nuts_level",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "experiment",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "metric",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from_date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to_date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/flask/hips/{nuts_level}/{experiment}/{metric}/{from_date}/{to_date}/{nutid}": {
+      "get": {
+        "tags": ["HIPS"],
+        "summary": "Get Hips by Date Range and Nut ID",
+        "parameters": [
+          {
+            "name": "nuts_level",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "experiment",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "metric",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from_date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to_date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "nutid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
                 }
               }
             }
