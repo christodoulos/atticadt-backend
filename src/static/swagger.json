@@ -255,7 +255,7 @@
     "/flask/hips/{nuts_level}/{experiment}/{metric}/{from_date}/{to_date}/{nutid}": {
       "get": {
         "tags": ["HIPS"],
-        "summary": "Get Hips by Date Range and Nut ID",
+        "summary": "Get Hips by Date Range and Nuts ID",
         "parameters": [
           {
             "name": "nuts_level",
