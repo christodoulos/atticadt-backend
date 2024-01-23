@@ -36,5 +36,6 @@ class Location(me.Document):
     bearing = me.FloatField(min_value=0, max_value=360)
     pitch = me.FloatField(min_value=0, max_value=60)
     glbModels = me.EmbeddedDocumentListField(GLBModel)
+    description = me.StringField()
 
     meta = {"collection": "locations", "db_alias": "attica_dt"}
