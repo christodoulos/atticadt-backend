@@ -16,3 +16,16 @@ class Nuts(me.Document):
     featureCollection = me.EmbeddedDocumentField(FeatureCollection, required=True)
 
     meta = {"collection": "nuts", "db_alias": "attica_dt"}
+
+
+class Nuts30(me.Document):
+    type = me.StringField(required=True, default="Feature")
+    geometry = me.GenericEmbeddedDocumentField(
+        choices=[me.PolygonField, me.MultiPolygonField]
+    )
+    # geometry = me.PolygonField(required=True)
+
+    properties = me.DictField(required=True)
+    nuts_id = me.StringField(required=True, db_field="id")
+
+    meta = {"collection": "nuts30", "db_alias": "attica_dt"}
