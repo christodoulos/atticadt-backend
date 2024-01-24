@@ -10,6 +10,16 @@ class FeatureCollection(me.EmbeddedDocument):
     )
 
 
+class MyPolygonField(me.EmbeddedDocument):
+    type = me.StringField(required=True, default="Polygon")
+    coordinates = me.ListField(me.ListField(me.ListField(me.FloatField())))
+
+
+class MyMultiPolygonField(me.EmbeddedDocument):
+    type = me.StringField(required=True, default="MultiPolygon")
+    coordinates = me.ListField(me.ListField(me.ListField(me.ListField(me.FloatField()))))
+
+
 class Nuts(me.Document):
     level = me.IntField(required=True, choices=[0, 1, 2, 3])
     scale = me.IntField(required=True, choices=[30])
@@ -21,10 +31,9 @@ class Nuts(me.Document):
 class Nuts30(me.Document):
     type = me.StringField(required=True, default="Feature")
     geometry = me.GenericEmbeddedDocumentField(
-        choices=[me.PolygonField, me.MultiPolygonField]
+        choices=[MyPolygonField, MyMultiPolygonField]
     )
-    # geometry = me.PolygonField(required=True)
-
+    
     properties = me.DictField(required=True)
     nuts_id = me.StringField(required=True, db_field="id")
 
