@@ -48,12 +48,12 @@ class IrrigationData(me.Document):
     temperature_runoff_2 = me.FloatField(required=True)
     conductivity_runoff_2 = me.FloatField(required=True)
     ph_runoff_2 = me.FloatField(required=True)
-    sum_runoff_volume_1 = me.FloatField(required=True)
-    sum_runoff_volume_2 = me.FloatField(required=True)
-    sum_pump_time = me.FloatField(required=True)
-    sum_waterings_volume_1 = me.FloatField(required=True)
-    sum_waterings_volume_2 = me.FloatField(required=True)
-    empty = me.FloatField(required=True)
+    sunmeter_below_2 = me.FloatField(required=True)
+    humidity_substrate_place_2 = me.FloatField(required=True)
+    humidity_substrate_1_place_1 = me.FloatField(required=True)
+    humidity_substrate_2_place_1 = me.FloatField(required=True)
+    sunmeter_below_1 = me.FloatField(required=True)
+    co2_1 = me.FloatField(required=True)
 
     meta = {"collection": "irrigation_data", "db_alias": "attica_green"}
 
@@ -70,10 +70,10 @@ class ClimaData(me.Document):
     is_raining = me.FloatField(required=True)
     windows_1 = me.FloatField(required=True)
     windows_2 = me.FloatField(required=True)
-    empty_1 = me.FloatField(required=True)
-    empty_2 = me.FloatField(required=True)
-    empty_3 = me.FloatField(required=True)
-    empty_4 = me.FloatField(required=True)
-    empty_5 = me.FloatField(required=True)
+    sunmeter_above_2 = me.FloatField(required=True)
+    curtain_1 = me.FloatField(required=True)
+    curtain_2 = me.FloatField(required=True)
+    fan_1 = me.FloatField(required=True)
+    fan_2 = me.FloatField(required=True)
 
     meta = {"collection": "clima_data", "db_alias": "attica_green"}
