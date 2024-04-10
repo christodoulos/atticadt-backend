@@ -1,14 +1,15 @@
 from flask import Blueprint, Response, send_file
 import pandas as pd
 from io import BytesIO
+from datetime import datetime, timedelta
 
 from src.models.attica_green import Irrigation, IrrigationData, ClimaData
 
 attica_green = Blueprint("attica_green", __name__)
 
 
-@attica_green.route("/data", methods=["GET"])
-def get_data():
+@attica_green.route("/data/<int:days>", methods=["GET"])
+def get_data(days: int):
     irrigation_headers = [
         "index",
         "timestamp",
@@ -53,12 +54,12 @@ def get_data():
         "temperature_runoff_2",
         "conductivity_runoff_2",
         "ph_runoff_2",
-        "sum_runoff_volume_1",
-        "sum_runoff_volume_2",
-        "sum_pump_time",
-        "sum_waterings_volume_1",
-        "sum_waterings_volume_2",
-        "empty",
+        "sunmeter_below_2",
+        "humidity_substrate_place_2",
+        "humidity_substrate_1_place_1",
+        "humidity_substrate_2_place_1",
+        "sunmeter_below_1",
+        "co2_1",
     ]
     clima_data_headers = [
         "timestamp",
@@ -72,16 +73,18 @@ def get_data():
         "is_raining",
         "windows_1",
         "windows_2",
-        "empty_1",
-        "empty_2",
-        "empty_3",
-        "empty_4",
-        "empty_5",
+        "sunmeter_above_2",
+        "curtain_1",
+        "curtain_2",
+        "fan_1",
+        "fan_2",
     ]
 
-    irrigation = Irrigation.objects().as_pymongo()
-    irrigation_data = IrrigationData.objects().as_pymongo()
-    clima_data = ClimaData.objects().as_pymongo()
+    startDate = datetime.now() - timedelta(days=days)
+
+    irrigation = Irrigation.objects(timestamp__gt=startDate).as_pymongo()
+    irrigation_data = IrrigationData.objects(timestamp__gt=startDate).as_pymongo()
+    clima_data = ClimaData.objects(timestamp__gt=startDate).as_pymongo()
 
     irrigation_df = pd.DataFrame(irrigation)[irrigation_headers]
     irrigation_data_df = pd.DataFrame(irrigation_data)[irrigation_data_headers]
