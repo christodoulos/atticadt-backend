@@ -1,3 +1,5 @@
+from src.config import DB_NAME
+from datetime import datetime, timedelta
 import mongoengine as me
 
 
@@ -16,4 +18,9 @@ class APNPLC(me.Document):
     col13 = me.FloatField(required=True)
     col14 = me.FloatField(required=True)
 
-    meta = {"collection": "apn-plc", "db_alias": "impetus-dev"}
+    meta = {"collection": "apn-plc", "db_alias": DB_NAME}
+
+
+    @staticmethod
+    def get_last_records(days_limit: int):
+        return APNPLC.objects(ts__gte=datetime.now() - timedelta(days=days_limit)).to_json()

@@ -8,9 +8,5 @@ apnplc = Blueprint("apnplc", __name__)
 
 @apnplc.route("/<int:limit>", methods=["GET"])
 def get_metrics(limit: int):
-    metrics = APNPLC.objects[:limit].to_json()
-    return Response(
-        response=metrics,
-        status=200,
-        mimetype="application/json",
-    )
+    metrics = APNPLC.get_last_records(limit)
+    return Response(response=metrics, status=200, mimetype="application/json")
