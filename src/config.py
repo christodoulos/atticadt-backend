@@ -1,5 +1,5 @@
 LOCAL_MACHINE = False
 
-MONGO_HOST = 'localhost'
+MONGO_HOST = "localhost"
 MONGO_PORT = 27028 if LOCAL_MACHINE else 27017
 DB_NAME = "attica_dt"

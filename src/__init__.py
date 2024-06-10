@@ -19,7 +19,12 @@ connect(alias=DB_NAME, db=DB_NAME, host=MONGO_HOST, port=MONGO_PORT)
 # connect(alias="hips", db="hips", host=MONGO_HOST, port=MONGO_PORT)
 
 
-cors = CORS(app, resources={r"*": {"origins": ["http://localhost:4200", "http://atticadt.ddns.net"]}})
+cors = CORS(
+    app,
+    resources={
+        r"*": {"origins": ["http://localhost:4200", "https://atticadt.ddns.net"]}
+    },
+)
 
 app.register_blueprint(apnplc, url_prefix="/apnplc")
 # app.register_blueprint(atticadt, url_prefix="/atticadt")
